@@ -4,73 +4,79 @@
 <html>
     
     <head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="flipclock.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<script src="jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="jquery.min.js"></script>
         <script src="flipclock.min.js"></script>
         <style>
             html {
-                //-ms-scroll-limit:0 0 0 0;
+                -ms-scroll-limit:0 0 0 0;
             }
             .flip-clock-wrapper ul li a div div.inn {
-				background-color:#111;
+                background-color:black;
+            }
+            
+            ul {
+                list-style: none;
+            }
+            .clock {
+                position:absolute;
+                top:25%;
+                left:43.5%;
+                transform: translate(-12%, 10%);
+            }
+            .sponsor {
+                bottom:10%;
+                margin-top:10px;
+            }
+            .festember {
+                position:absolute;
+                top:1;
+                left:46%;
+                transform: translate(-12%, 10%);
+                width: 10%;
+            }
+            .center {
+                margin: 0 auto;
+            }
+            .gallery{
+              position:absolute;
+              top:50%;
+              left:22%;
+              transform: translate(-12%, 10%);
+
             }
             body {
                 width:100%;
-                //overflow:hidden;
-                background: #FFCB80;
-            }
-            ul{
-            	list-style: none;
-            }
-            .clock {
-            margin-top:2em;
-            width:50%;
-            }
-            .thumbs img {
-            	//background-color: rgba(255,255,255,0.5);
-                box-shadow: 2px 2px 4px rgba(0, 0, 0, .32);
-            }
-            .festember{
-            	 width: 10%;
-    
-            }
-            .center{
-            	margin: 0 auto;
+                overflow:hidden;
+                background:rgb(20,20,20) !important;
             }
         </style>
     </head>
     
     <body>
-
-        <img class = "img-responsive col-md-offset-5 festember center" src="logos/festember.png" />
-        <div class="container center">
-        	<div class = "row center">
-        	<div class = "clock center"></div>
-		</div>
-        </div>
-        
+        <img class="img-responsive col-md-offset-5 festember center" src="logos/festember.png" />
+        <div class="clock"></div>
         <div class="message"></div>
         <div class="wrapper">
-      <section class="gallery">
-        <div class="container">
-		<div class = "row col-md-offset-2">
-          <img class="col-md-2 img-responsive" src="logos/sample.png" />
-          <img class="col-md-2 img-responsive" src="logos/sample.png" />
-          <img class="col-md-2 img-responsive" src="logos/sample.png" />
-          <img class="col-md-2 img-responsive" src="logos/sample.png" />
+            <section class="gallery">
+                <div class="container">
+                    <div class="row col-md-offset-2">
+                        <img class="col-md-2 img-responsive sponsor" src="logos/sample.png" />
+                        <img class="col-md-2 img-responsive sponsor" src="logos/sample.png" />
+                        <img class="col-md-2 img-responsive sponsor" src="logos/sample.png" />
+                        <img class="col-md-2 img-responsive sponsor" src="logos/sample.png" />
+                    </div>
+                    <div class="row col-md-offset-2">
+                        <img class="col-md-2 img-responsive sponsor" src="logos/sample.png" />
+                        <img class="col-md-2 img-responsive sponsor" src="logos/sample.png" />
+                        <img class="col-md-2 img-responsive sponsor" src="logos/sample.png" />
+                        <img class="col-md-2 img-responsive sponsor" src="logos/sample.png" />
+                    </div>
+                </div>
+            </section>
         </div>
-        <div class = "row col-md-offset-2">
-          <img class="col-md-2 img-responsive" src="logos/sample.png" />
-          <img class="col-md-2 img-responsive" src="logos/sample.png" />
-          <img class="col-md-2 img-responsive" src="logos/sample.png" />
-          <img class="col-md-2 img-responsive" src="logos/sample.png" />
-        </div>
-        </div>
-      </section>
-      
-    </div>
         <script type="text/javascript">
             var clock;
 
@@ -78,36 +84,35 @@
                 var clock;
 
                 clock = $('.clock').FlipClock({
-                    clockFace: 'HourCounter',
+                    clockFace: 'MinuteCounter',
                     autoStart: false,
                     callbacks: {}
                 });
-var done = 0;
-$.ajax({
-  url: ".",
-  success: function(data){
-     $(data).find("td > a").each(function(){
-        if(done==0){
-        var s = ($(this).attr("href")).split('.');
-        if(isInt(s[0])){
-        	
-        	clock.setCountdown(true);
-        	clock.setTime(parseInt(s[0],10));
-            clock.start();
-            done=1;
-        }
-        }
-     });
-  }
-});
-                
+                var done = 0;
+                $.ajax({
+                    url: ".",
+                    success: function(data) {
+                        $(data).find("td > a").each(function() {
+                            if (done == 0) {
+                                var s = ($(this).attr("href")).split('.');
+                                if (isInt(s[0])) {
+
+                                    clock.setCountdown(true);
+                                    clock.setTime(parseInt(s[0], 10));
+                                    clock.start();
+                                    done = 1;
+                                }
+                            }
+                        });
+                    }
+                });
+
 
             });
-function isInt(value) {
-  return !isNaN(value) && 
-         parseInt(Number(value)) == value && 
-         !isNaN(parseInt(value, 10));
-}
+
+            function isInt(value) {
+                return !isNaN(value) && parseInt(Number(value)) == value && !isNaN(parseInt(value, 10));
+            }
         </script>
     </body>
 
